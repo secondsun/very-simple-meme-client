@@ -3,9 +3,8 @@
     package="org.jboss.aerogear.verysimplememeclient" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,8 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name="org.jboss.aerogear.android.authorization.oauth2.OAuth2AuthzService" />
 
+        <activity
+            android:name=".ListActivity"
+            android:label="@string/title_activity_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.jboss.aerogear.verysimplememeclient.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

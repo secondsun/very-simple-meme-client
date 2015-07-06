@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -48,6 +49,12 @@ public class MainActivity extends Activity {
                 submit();
             }
         });
+        findViewById(R.id.list_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list();
+            }
+        });
 
         (image = (ImageView) findViewById(R.id.image)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +66,10 @@ public class MainActivity extends Activity {
         bottomComment = (EditText) findViewById(R.id.bottomComment);
         topComment= (EditText) findViewById(R.id.topComment);
 
+    }
+
+    private void list() {
+        startActivity(new Intent(this, ListActivity.class));
     }
 
     private void showImagePicker() {
@@ -92,6 +103,7 @@ public class MainActivity extends Activity {
         meme.setBottomComment(bottomComment.getText().toString());
 
 
+        CookieManager.getInstance();
 
         image.setDrawingCacheEnabled(true);
 
@@ -104,7 +116,7 @@ public class MainActivity extends Activity {
         byte[] byteArray = stream.toByteArray();
 
         meme.setImage(byteArray);
-        PipeManager.getPipe("kc-upload").save(meme, new Callback() {
+        PipeManager.getPipe("kc-upload", this).save(meme, new Callback() {
             @Override
             public void onSuccess(Object o) {
                 Log.d("TAG", new Gson().toJson(o));
